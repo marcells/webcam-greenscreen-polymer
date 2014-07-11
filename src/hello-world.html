@@ -6,7 +6,7 @@
 
     <template>
     	<style>
-    		#webcam { display: none;}
+    		#webcam, #canvasSource { display: none;}
     	</style>
 
     	<video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
@@ -17,8 +17,8 @@
     <script>
 	    Polymer('hello-world', {
         	audio: false,
-        	width: '640',
-            height: '480',
+        	width: 640,
+            height: 480,
             created: function() {
 	            if (!window.URL) {
 	                window.URL = window.URL || window.webkitURL || window.msURL || window.oURL;
@@ -40,9 +40,16 @@
 	            that.contextCutout = that.$.canvasCutout.getContext('2d');
 
 	            function processFrame() {
-		    		that.contextSource.drawImage(that.$.webcam, 0, 0, 640, 480);
-		    		requestAnimationFrame(processFrame);
+		    		that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
+		    		greenScreen(that.contextSource, that.contextCutout);
+		    		window.requestAnimationFrame(processFrame);
 		    	}
+
+		    	function greenScreen(source, target) {
+			        var pixels = source.getImageData(0, 0, that.width, that.height);
+
+			        target.putImageData(pixels, 0, 0);
+			    }
 
 	            navigator.getUserMedia({
 	                audio: that.audio,
