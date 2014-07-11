@@ -5,12 +5,26 @@
 <polymer-element name="hello-world" attributes="width height audio">
 
     <template>
-    	<video id="video" width="{{width}}" height="{{height}}" tabindex=0 autoplay>
-            <content></content>
-        </video>
+    	<style>
+    		#webcam { display: none;}
+    	</style>
+
+    	<video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
+    	<canvas id="canvasSource" width="{{width}}" height="{{height}}"></canvas>
     </template>
 
     <script>
+	    var requestAnimationFrame = (function() {
+	        return  window.requestAnimationFrame       ||
+	                window.webkitRequestAnimationFrame ||
+	                window.mozRequestAnimationFrame    ||
+	                window.oRequestAnimationFrame      ||
+	                window.msRequestAnimationFrame     ||
+	                function( callback ){
+	                    window.setTimeout(callback, 1000 / 40);
+	                };
+	    })();
+
         Polymer('hello-world', {
         	audio: false,
         	width: '640',
@@ -28,12 +42,20 @@
 	        ready: function() {
 	            var that = this;
 
+	            that.contextSource = that.$.canvasSource.getContext('2d');
+
+	            function processFrame() {
+		    		that.contextSource.drawImage(that.$.webcam, 0, 0, 640, 480);
+		    		requestAnimationFrame(processFrame);
+		    	}
+
 	            navigator.getUserMedia({
 	                audio: that.audio,
 	                video: true
 	            },
 	            function(stream) {
-	                that.$.video.src = window.URL.createObjectURL(stream);
+	                that.$.webcam.src = window.URL.createObjectURL(stream);
+	                processFrame();
 	            },
 	            function(err) {
 	                throw Error(err);
