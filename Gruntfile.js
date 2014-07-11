@@ -11,11 +11,11 @@ module.exports = function(grunt) {
         },
         'gh-pages': {
             options: {
-                clone: 'bower_components/hello-world-polymer'
+                clone: 'bower_components/webcam-greenscreen-polymer'
             },
             src: [
                 'bower_components/**/*',
-                '!bower_components/hello-world-polymer/**/*',
+                '!bower_components/webcam-greenscreen-polymer/**/*',
                 'src/*', 'index.html'
             ]
         },
