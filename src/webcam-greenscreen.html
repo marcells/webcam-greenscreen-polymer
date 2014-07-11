@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="hello-world" attributes="width height audio">
+<polymer-element name="webcam-greenscreen" attributes="width height audio">
     <template>
     	<style>
     		#webcam, #canvasSource { display: none;}
@@ -13,7 +13,7 @@
 
 	<script src="helper.js"></script>
     <script>
-	    Polymer('hello-world', {
+	    Polymer('webcam-greenscreen', {
         	audio: false,
         	width: 640,
             height: 480,
@@ -31,7 +31,7 @@
 
 	            function processFrame() {
 		    		that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
-		    		greenScreen(that.contextSource, that.contextCutout);
+		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height);
 		    		window.requestAnimationFrame(processFrame);
 		    	}
 

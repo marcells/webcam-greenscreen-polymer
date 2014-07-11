@@ -42,8 +42,8 @@ function getAlpha(color) {
     return Math.min(1000, Math.exp(distance * threshold));
 }
 
-function greenScreen(sourceContext, targetContext) {
-    var pixels = sourceContext.getImageData(0, 0, that.width, that.height);
+function greenScreen(sourceContext, targetContext, width, height) {
+    var pixels = sourceContext.getImageData(0, 0, width, height);
 
     var length = pixels.data.length / 4;
 
