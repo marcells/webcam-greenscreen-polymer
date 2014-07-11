@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="webcam-greenscreen" attributes="width height audio">
+<polymer-element name="webcam-greenscreen" attributes="width height audio chromaRed chromaGreen chromaBlue chromaThreshold">
     <template>
     	<style>
     		#webcam, #canvasSource { display: none; }
@@ -17,26 +17,33 @@
         	audio: false,
         	width: 640,
             height: 480,
+            chromaRed: 255,
+            chromaGreen: 0,
+            chromaBlue: 0,
+            chromaThreshold: 0.1,
+
             created: function() {
 	            ensureBrowserCompatibility();
 	        },
 
 	        ready: function() {
-	        	var chromaKey = {
-	        		threshold: 0.1, //min="0" step="0.001" max="0.2"
-	        		color: [159, 38, 40] // Some red value
-	        	};
-
-	            var that = this;
+	        	var that = this;
 
 	            that.contextSource = that.$.canvasSource.getContext('2d');
 	            that.contextCutout = that.$.canvasCutout.getContext('2d');
 
 	            activateDebugging(that.$.canvasCutout, that.contextSource);
 
+				function generateChromaKey () {
+	        		return {
+		        		threshold: that.chromaThreshold, //min="0" step="0.001" max="0.2"
+		        		color: [that.chromaRed, that.chromaGreen, that.chromaBlue] // Some red value
+		        	};
+	        	}
+
 	            function processFrame() {
 		    		that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
-		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height, chromaKey);
+		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height, generateChromaKey());
 		    		window.requestAnimationFrame(processFrame);
 		    	}
 
