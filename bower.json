@@ -1,9 +1,9 @@
 {
-    "name": "hello-world-polymer",
+    "name": "webcam-greenscreen-polymer",
     "version": "0.1.2",
-    "description": "Web Component example using Polymer",
+    "description": "Web Component to allow the use of a greenscreen with a webcam.",
     "authors": [
-        "WebComponents.org"
+        "Marcell Spies"
     ],
     "license": "MIT",
     "main": "dist/hello-world.html",

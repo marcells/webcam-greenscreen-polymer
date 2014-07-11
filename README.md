@@ -1,22 +1,8 @@
-# &lt;hello-world&gt;
+# &lt;webcam-greenscreen&gt;
 
-> A Web Component example using [Polymer](http://www.polymer-project.org/).
->
+> A Web Component using [Polymer](http://www.polymer-project.org/).
+> 
 > Looking for a boilerplate? Check [polymer-boilerplate](https://github.com/webcomponents/polymer-boilerplate).
-
-## Demo
-
-[Check it live!](http://webcomponents.github.io/hello-world-polymer)
-
-## Install
-
-Install the component using [Bower](http://bower.io/):
-
-```sh
-$ bower install hello-world-polymer --save
-```
-
-Or [download as ZIP](https://github.com/webcomponents/hello-world-polymer/archive/master.zip).
 
 ## Usage
 
@@ -35,61 +21,40 @@ Or [download as ZIP](https://github.com/webcomponents/hello-world-polymer/archiv
 3. Start using it!
 
     ```html
-    <hello-world></hello-world>
+    <webcam-greenscreen></webcam-greenscreen>
     ```
 
 ## Options
 
-Attribute  | Options                   | Default             | Description
----        | ---                       | ---                 | ---
-`who`      | *string*                  | `World`             | Who do you want to say hello?
-
-## Development
-
-In order to run it locally you'll need to fetch some dependencies and a basic server setup.
-
-1. Install [Bower](http://bower.io/) & [Grunt](http://gruntjs.com/):
-
-    ```sh
-    $ [sudo] npm install -g bower grunt-cli
-    ```
-
-2. Install local dependencies:
-
-    ```sh
-    $ bower install && npm install
-    ```
-
-3. To test your project, start the development server and open `http://localhost:8000`.
-
-    ```sh
-    $ grunt server
-    ```
-
-4. To build the distribution files before releasing a new version.
-
-    ```sh
-    $ grunt build
-    ```
-
-5. To provide a live demo, send everything to `gh-pages` branch.
-
-    ```sh
-    $ grunt deploy
-    ```
-
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
-
-## History
-
-For detailed changelog, check [Releases](https://github.com/webcomponents/hello-world-polymer/releases).
+Attribute           | Options         | Default             | Description
+---                 | ---             | ---                 | ---
+`width`             | *pixel*         | `640px`             | Width of the webcam video
+`height`            | *pixel*         | `480px`             | Height of the webcam video
+`chromaRed`         | *int*           | `0`                 | Red value of color, which gets transparent (0-255)
+`chromaGreen`       | *int*           | `0`                 | Green value of color, which gets transparent (0-255)
+`chromaBlue`        | *int*           | `0`                 | Blue value of color, which gets transparent (0-255)
+`chromaThreshold`   | *float*         | `0.1`               | Sensibility, when the color gets transparent (0.001-0.2)
 
 ## License
 
-[MIT License](http://webcomponentsorg.mit-license.org/) © WebComponents.org
+The MIT License (MIT)
+
+Copyright (c) 2014 Marcell Spies
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
