@@ -4,6 +4,10 @@
 > 
 > Looking for a boilerplate? Check [polymer-boilerplate](https://github.com/webcomponents/polymer-boilerplate).
 
+## Demo
+
+[See a live sample here](http://marcells.github.io/webcam-greenscreen-polymer)
+
 ## Usage
 
 1. Import Web Components' polyfill:
