@@ -1,0 +1,39 @@
+<!-- Import Polymer -->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- Define your custom element -->
+<polymer-element name="hello-world" extends="video">
+
+    <!-- <template>
+    	<video extends="video"></video>
+    </template> -->
+
+    <script>
+        Polymer('hello-world', {
+            created: function() {
+	            if (!window.URL) {
+	                window.URL = window.URL || window.webkitURL || window.msURL || window.oURL;
+	            }
+
+	            if (!navigator.getUserMedia) {
+	                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	            }
+	        },
+
+	        ready: function() {
+	            var that = this;
+
+	            navigator.getUserMedia({
+	                audio: that.audio,
+	                video: true
+	            },
+	            function(stream) {
+	                that.src = window.URL.createObjectURL(stream);
+	            },
+	            function(err) {
+	                throw Error(err);
+	            });
+	        }
+        });
+    </script>
+</polymer-element>
