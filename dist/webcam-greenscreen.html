@@ -2,20 +2,20 @@
 
 <polymer-element name="webcam-greenscreen" attributes="width height audio chromaRed chromaGreen chromaBlue chromaThreshold">
     <template>
-    	<style>
-    		#webcam, #canvasSource { display: none; }
-    	</style>
+        <style>
+            #webcam, #canvasSource { display: none; }
+        </style>
 
-    	<video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
-    	<canvas id="canvasSource" width="{{width}}" height="{{height}}"></canvas>
-    	<canvas id="canvasCutout" width="{{width}}" height="{{height}}"></canvas>
+        <video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
+        <canvas id="canvasSource" width="{{width}}" height="{{height}}"></canvas>
+        <canvas id="canvasCutout" width="{{width}}" height="{{height}}"></canvas>
     </template>
 
-	<script src="helper.js"></script>
+    <script src="helper.js"></script>
     <script>
-	    Polymer('webcam-greenscreen', {
-        	audio: false,
-        	width: 640,
+        Polymer('webcam-greenscreen', {
+            audio: false,
+            width: 640,
             height: 480,
             chromaRed: 0,
             chromaGreen: 0,
@@ -23,42 +23,42 @@
             chromaThreshold: 0.1,
 
             created: function() {
-	            ensureBrowserCompatibility();
-	        },
+                ensureBrowserCompatibility();
+            },
 
-	        ready: function() {
-	        	var that = this;
+            ready: function() {
+                var that = this;
 
-	            that.contextSource = that.$.canvasSource.getContext('2d');
-	            that.contextCutout = that.$.canvasCutout.getContext('2d');
+                that.contextSource = that.$.canvasSource.getContext('2d');
+                that.contextCutout = that.$.canvasCutout.getContext('2d');
 
-	            activateDebugging(that.$.canvasCutout, that.contextSource);
+                activateDebugging(that.$.canvasCutout, that.contextSource);
 
-				function generateChromaKey () {
-	        		return {
-		        		threshold: that.chromaThreshold, //min="0" step="0.001" max="0.2"
-		        		color: [that.chromaRed, that.chromaGreen, that.chromaBlue] // Some red value
-		        	};
-	        	}
+                function generateChromaKey () {
+                    return {
+                        threshold: that.chromaThreshold, //min="0" step="0.001" max="0.2"
+                        color: [that.chromaRed, that.chromaGreen, that.chromaBlue] // Some red value
+                    };
+                }
 
-	            function processFrame() {
-		    		that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
-		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height, generateChromaKey());
-		    		window.requestAnimationFrame(processFrame);
-		    	}
+                function processFrame() {
+                    that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
+                    greenScreen(that.contextSource, that.contextCutout, that.width, that.height, generateChromaKey());
+                    window.requestAnimationFrame(processFrame);
+                }
 
-	            navigator.getUserMedia({
-	                audio: that.audio,
-	                video: true
-	            },
-	            function(stream) {
-	                that.$.webcam.src = window.URL.createObjectURL(stream);
-	                processFrame();
-	            },
-	            function(err) {
-	                throw Error(err);
-	            });
-	        }
+                navigator.getUserMedia({
+                    audio: that.audio,
+                    video: true
+                },
+                function(stream) {
+                    that.$.webcam.src = window.URL.createObjectURL(stream);
+                    processFrame();
+                },
+                function(err) {
+                    throw Error(err);
+                });
+            }
         });
     </script>
 </polymer-element>
