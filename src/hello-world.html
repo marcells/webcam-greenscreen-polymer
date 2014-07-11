@@ -11,21 +11,11 @@
 
     	<video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
     	<canvas id="canvasSource" width="{{width}}" height="{{height}}"></canvas>
+    	<canvas id="canvasCutout" width="{{width}}" height="{{height}}"></canvas>
     </template>
 
     <script>
-	    var requestAnimationFrame = (function() {
-	        return  window.requestAnimationFrame       ||
-	                window.webkitRequestAnimationFrame ||
-	                window.mozRequestAnimationFrame    ||
-	                window.oRequestAnimationFrame      ||
-	                window.msRequestAnimationFrame     ||
-	                function( callback ){
-	                    window.setTimeout(callback, 1000 / 40);
-	                };
-	    })();
-
-        Polymer('hello-world', {
+	    Polymer('hello-world', {
         	audio: false,
         	width: '640',
             height: '480',
@@ -37,12 +27,17 @@
 	            if (!navigator.getUserMedia) {
 	                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	            }
+
+	            if(!window.requestAnimationFrame) {
+	            	window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
+	            }
 	        },
 
 	        ready: function() {
 	            var that = this;
 
 	            that.contextSource = that.$.canvasSource.getContext('2d');
+	            that.contextCutout = that.$.canvasCutout.getContext('2d');
 
 	            function processFrame() {
 		    		that.contextSource.drawImage(that.$.webcam, 0, 0, 640, 480);
