@@ -3,7 +3,7 @@
 <polymer-element name="webcam-greenscreen" attributes="width height audio">
     <template>
     	<style>
-    		#webcam, #canvasSource { display: none;}
+    		#webcam, #canvasSource { display: none; }
     	</style>
 
     	<video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
@@ -22,6 +22,11 @@
 	        },
 
 	        ready: function() {
+	        	var chromaKey = {
+	        		threshold: 0.1, //min="0" step="0.001" max="0.2"
+	        		color: [159, 38, 40] // Some red value
+	        	};
+
 	            var that = this;
 
 	            that.contextSource = that.$.canvasSource.getContext('2d');
@@ -31,7 +36,7 @@
 
 	            function processFrame() {
 		    		that.contextSource.drawImage(that.$.webcam, 0, 0, that.width, that.height);
-		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height);
+		    		greenScreen(that.contextSource, that.contextCutout, that.width, that.height, chromaKey);
 		    		window.requestAnimationFrame(processFrame);
 		    	}
 

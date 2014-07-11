@@ -27,22 +27,19 @@ function activateDebugging (domForMouseDown, canvasContext) {
     }, false);
 }
 
-function getAlpha(color) {
-    var threshold = 0.1; //min="0" step="0.001" max="0.2"
-    var replace = [159, 38, 40]; // Some red value
-
+function getAlpha(originalColor, chromaKey) {
     var distance = Math.pow(
-        (replace[0] - color[0]) *
-        (replace[0] - color[0]) +
-        (replace[1] - color[1]) *
-        (replace[1] - color[1]) +
-        (replace[2] - color[2]) *
-        (replace[2] - color[2]), 0.5 );
+        (chromaKey.color[0] - originalColor[0]) *
+        (chromaKey.color[0] - originalColor[0]) +
+        (chromaKey.color[1] - originalColor[1]) *
+        (chromaKey.color[1] - originalColor[1]) +
+        (chromaKey.color[2] - originalColor[2]) *
+        (chromaKey.color[2] - originalColor[2]), 0.5 );
 
-    return Math.min(1000, Math.exp(distance * threshold));
+    return Math.min(1000, Math.exp(distance * chromaKey.threshold));
 }
 
-function greenScreen(sourceContext, targetContext, width, height) {
+function greenScreen(sourceContext, targetContext, width, height, chromaKey) {
     var pixels = sourceContext.getImageData(0, 0, width, height);
 
     var length = pixels.data.length / 4;
@@ -52,7 +49,7 @@ function greenScreen(sourceContext, targetContext, width, height) {
         var g = pixels.data[i*4 + 1];
         var b = pixels.data[i*4 + 2];
 
-        pixels.data[i*4 + 3] = getAlpha([r,g,b]);
+        pixels.data[i*4 + 3] = getAlpha([r,g,b], chromaKey);
     }
 
     targetContext.putImageData(pixels, 0, 0);
