@@ -34,6 +34,7 @@ Attribute           | Options         | Default             | Description
 ---                 | ---             | ---                 | ---
 `width`             | *pixel*         | `640px`             | Width of the webcam video
 `height`            | *pixel*         | `480px`             | Height of the webcam video
+`image`             | *url*           | ``                  | The image, which will be displayed in the background of the video
 `chromaRed`         | *int*           | `0`                 | Red value of color, which gets transparent (0-255)
 `chromaGreen`       | *int*           | `0`                 | Green value of color, which gets transparent (0-255)
 `chromaBlue`        | *int*           | `0`                 | Blue value of color, which gets transparent (0-255)
