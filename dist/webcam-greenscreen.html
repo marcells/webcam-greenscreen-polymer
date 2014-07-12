@@ -1,6 +1,6 @@
 <link rel="import" href="../../polymer/polymer.html">
 
-<polymer-element name="webcam-greenscreen" attributes="width height audio chromaRed chromaGreen chromaBlue chromaThreshold">
+<polymer-element name="webcam-greenscreen" attributes="width height audio image chromaRed chromaGreen chromaBlue chromaThreshold">
     <template>
         <style>
             #webcam, #canvasSource { display: none; }
@@ -8,7 +8,7 @@
 
         <video id="webcam" width="{{width}}" height="{{height}}" tabindex=0 autoplay></video>
         <canvas id="canvasSource" width="{{width}}" height="{{height}}"></canvas>
-        <canvas id="canvasCutout" width="{{width}}" height="{{height}}"></canvas>
+        <canvas id="canvasCutout" width="{{width}}" height="{{height}}" style="background-size: cover; background:url({{image}})"></canvas>
     </template>
 
     <script src="helper.js"></script>
@@ -17,6 +17,7 @@
             audio: false,
             width: 640,
             height: 480,
+            image: '',
             chromaRed: 0,
             chromaGreen: 0,
             chromaBlue: 0,
